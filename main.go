@@ -1,13 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-
-	"github.com/joho/godotenv"
 
 	"github.com/ContrerasJoel/gestor_go/db"
 	"github.com/ContrerasJoel/gestor_go/internal/product"
@@ -16,26 +12,13 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 
 	DSN := os.Getenv("DSN")
+	if DSN == "" {
+		DSN = "postgres://root:8sWlwpSrlR93tUUlrShNEhE8PPQAnBfj@dpg-chj5l9l269v2e2eeoglg-a.oregon-postgres.render.com/gestor_dvgi"
+	}
 	db.ConnectionDB(DSN)
 	db.DB.AutoMigrate(product.Product{})
-
-	url := "https://api.ipify.org?format=json"
-	resp, err := http.Get(url)
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer resp.Body.Close()
-	content, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-	log.Println(string(content))
 
 	port := os.Getenv("PORT")
 	if port == "" {
