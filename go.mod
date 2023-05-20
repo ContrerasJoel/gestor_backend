@@ -20,6 +20,5 @@ require (
 
 require (
 	github.com/felixge/httpsnoop v1.0.1 // indirect
-	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.5.0
 )
