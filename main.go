@@ -14,15 +14,12 @@ import (
 func main() {
 
 	DSN := os.Getenv("DSN")
-	if DSN == "" {
-		DSN = "postgres://root:8sWlwpSrlR93tUUlrShNEhE8PPQAnBfj@dpg-chj5l9l269v2e2eeoglg-a.oregon-postgres.render.com/gestor_dvgi"
-	}
 	db.ConnectionDB(DSN)
 	db.DB.AutoMigrate(product.Product{})
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "7071"
+		port = "7072"
 	}
 
 	r := mux.NewRouter()
